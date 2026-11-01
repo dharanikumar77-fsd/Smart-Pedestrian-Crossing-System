@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Traffic Node</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-section" class="container" style="max-width: 400px; margin: 100px auto;">
+        <h2>System Login</h2>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button id="login-btn" class="action-btn">Authenticate</button>
+        <p id="error-message" style="color: #e74c3c; display: none;"></p>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app-section" style="display: none; width: 100%;">
+
+        <!-- Top Navigation Header -->
+        <header class="main-header">
+            <div class="logo">TrafficNode IoT</div>
+            <nav class="nav-links">
+                <button class="nav-btn active" data-target="sec-traffic">Traffic Visualizer</button>
+                <button class="nav-btn" data-target="sec-peds">Pedestrian Count</button>
+                <button class="nav-btn" data-target="sec-hour">Hour Mode</button>
+                <button class="nav-btn" data-target="sec-emergency">Emergency Override</button>
+                <button class="nav-btn" data-target="sec-data">Data & PDF</button>
+                <button id="logout-btn" class="nav-btn danger-btn">Logout</button>
+            </nav>
+        </header>
+
+        <!-- Alert Banners -->
+        <div id="system-alert-banner" class="alert-banner" style="display: none;">
+            🚨 SENSOR ANOMALY: Hardware Limit Reached or Obstructed!
+        </div>
+        <div id="emergency-alert-banner" class="alert-banner warning-banner" style="display: none;">
+            ⚠️ EMERGENCY MODE ACTIVE: <span id="emergency-mode-text">Normal</span>
+        </div>
+        <p id="role-warning" class="role-text"></p>
+
+        <!-- Main Content Area -->
+        <main class="content-wrapper">
+
+            <!-- SECTION: Traffic Visualizer -->
+            <section id="sec-traffic" class="view-section active">
+                <div class="card">
+                    <h3>Live Signal Visualizer</h3>
+                    <p>Phase: <strong id="val-phase">Syncing...</strong> | Timer: <strong id="val-time-left">--</strong>
+                    </p>
+                    <div class="traffic-light-container">
+                        <div class="signal-group">
+                            <h4>Vehicles</h4>
+                            <div class="traffic-light">
+                                <div class="bulb" id="car-red"></div>
+                                <div class="bulb" id="car-yellow"></div>
+                                <div class="bulb" id="car-green"></div>
+                            </div>
+                        </div>
+                        <div class="signal-group">
+                            <h4>Pedestrians</h4>
+                            <div class="traffic-light ped-light">
+                                <div class="bulb" id="ped-red"></div>
+                                <div class="bulb" id="ped-green"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Pedestrian Count (Big Size) -->
+            <section id="sec-peds" class="view-section">
+                <div class="card peds-card">
+                    <h3>Current Waiting Pedestrians</h3>
+                    <div class="big-number" id="val-ped-count">0</div>
+                    <p>Maximum Queue Limit: 20</p>
+                </div>
+            </section>
+
+            <!-- SECTION: Hour Mode -->
+            <section id="sec-hour" class="view-section">
+                <div class="card">
+                    <h3>Operational Hour Mode</h3>
+                    <p>Adjust the base green time for vehicles.</p>
+                    <div class="button-group">
+                        <button id="btn-normal-hour" class="action-btn mode-btn active">Normal Hour (60s)</button>
+                        <button id="btn-peak-hour" class="action-btn mode-btn">Peak Hour (+30s / 90s)</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Emergency Override -->
+            <section id="sec-emergency" class="view-section">
+                <div class="card">
+                    <h3>Emergency Hardware Override</h3>
+                    <p>Force signal states for emergency vehicles.</p>
+                    <div class="button-group-vertical">
+                        <button id="btn-emg-0" class="action-btn emg-btn active">Normal Operation</button>
+                        <button id="btn-emg-1" class="action-btn emg-btn">Hold Car Green</button>
+                        <button id="btn-emg-2" class="action-btn emg-btn">Hold Pedestrian Green</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Data & PDF -->
+            <section id="sec-data" class="view-section">
+                <div class="card">
+                    <h3>System Analytics</h3>
+                    <ul class="status-list">
+                        <li><strong>Total Peds Today:</strong> <span id="val-total-peds">0</span></li>
+                        <li><strong>Total Cycles:</strong> <span id="val-total-cycles">0</span></li>
+                        <li><strong>IR Sensor:</strong> <span id="val-ir">--</span> (<span id="val-ir-timer">0</span>s)
+                        </li>
+                        <li><strong>Buzzer Status:</strong> <span id="val-buzzer-status">OFF</span></li>
+                    </ul>
+                    <hr>
+                    <button id="download-pdf-btn" class="action-btn">Download Formatted PDF Report</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
