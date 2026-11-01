@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
-
 <body>
 
     <!-- Login Screen -->
@@ -23,7 +21,7 @@
 
     <!-- Main Application -->
     <div id="app-section" style="display: none; width: 100%;">
-
+        
         <!-- Top Navigation Header -->
         <header class="main-header">
             <div class="logo">TrafficNode IoT</div>
@@ -48,13 +46,12 @@
 
         <!-- Main Content Area -->
         <main class="content-wrapper">
-
+            
             <!-- SECTION: Traffic Visualizer -->
             <section id="sec-traffic" class="view-section active">
                 <div class="card">
                     <h3>Live Signal Visualizer</h3>
-                    <p>Phase: <strong id="val-phase">Syncing...</strong> | Timer: <strong id="val-time-left">--</strong>
-                    </p>
+                    <p>Phase: <strong id="val-phase">Syncing...</strong> | Timer: <strong id="val-time-left">--</strong></p>
                     <div class="traffic-light-container">
                         <div class="signal-group">
                             <h4>Vehicles</h4>
@@ -116,8 +113,7 @@
                     <ul class="status-list">
                         <li><strong>Total Peds Today:</strong> <span id="val-total-peds">0</span></li>
                         <li><strong>Total Cycles:</strong> <span id="val-total-cycles">0</span></li>
-                        <li><strong>IR Sensor:</strong> <span id="val-ir">--</span> (<span id="val-ir-timer">0</span>s)
-                        </li>
+                        <li><strong>IR Sensor:</strong> <span id="val-ir">--</span> (<span id="val-ir-timer">0</span>s)</li>
                         <li><strong>Buzzer Status:</strong> <span id="val-buzzer-status">OFF</span></li>
                     </ul>
                     <hr>
@@ -130,5 +126,4 @@
 
     <script type="module" src="script.js"></script>
 </body>
-
 </html>
